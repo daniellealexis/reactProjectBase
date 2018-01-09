@@ -7,6 +7,7 @@ module.exports = {
     // parser: 'babel-eslint',
     env: {
         browser: true,
+        jasmine: true,
     },
     rules: {
         'indent': ['error', 4],
