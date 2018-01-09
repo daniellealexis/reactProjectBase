@@ -3,14 +3,13 @@ const path = require('path');
 const autoprefixer = require('autoprefixer');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const cssNano = require('cssnano');
-const extractCSS = new ExtractTextPlugin('dist/styles/[name].css');
 
 const postCSSLoader = {
     loader: 'postcss-loader',
     options: {
         ident: 'postcss',
         sourceMap: true,
-        plugins: (loader) => [
+        plugins: () => [
             autoprefixer({
                 browsers: ['last 2 versions'],
             }),
@@ -22,13 +21,13 @@ const postCSSLoader = {
                 }],
             }),
         ],
-    }
+    },
 };
 
 module.exports = {
     context: path.join(__dirname, 'app'),
     entry: {
-        main: './src/js/entry/index.js',
+        main: './src/js/entry/index.jsx',
     },
     output: {
         path: path.join(__dirname, 'app', 'dist', 'js'),
@@ -37,11 +36,12 @@ module.exports = {
     module: {
         rules: [
             {
-               test: /\.js?$/,
-               loader: 'babel-loader',
-               options: {
-                   presets: ['env'],
-               }
+                test: /.jsx?$/, // Match both .js and .jsx
+                loader: 'babel-loader',
+                exclude: /node_modules/,
+                options: {
+                    presets: ['env', 'react'],
+                },
             },
             {
                 test: /\.styl?$/,
@@ -67,8 +67,15 @@ module.exports = {
         }),
     ],
     stats: {
-        colors: true
+        colors: true,
+    },
+    resolve: {
+        extensions: ['.js', '.jsx'],
+        alias: {
+            '@components': path.resolve(__dirname, 'app/src/js/components'),
+            '@styles': path.resolve(__dirname, 'app/src/styles'),
+        },
     },
     target: 'web',
     devtool: 'source-map',
-}
+};

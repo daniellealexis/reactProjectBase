@@ -1,10 +1,11 @@
+const path = require('path');
+
 module.exports = {
     extends: 'airbnb',
     plugins: [
-        //'react',
+        'react',
         'import'
     ],
-    // parser: 'babel-eslint',
     env: {
         browser: true,
         jasmine: true,
@@ -16,5 +17,17 @@ module.exports = {
             comments: 100,
             ignorePattern: '^\\s*(\'.*\'|".*"|`.*`)[,;]?$',
         }],
+        'react/jsx-indent': ['error', 4],
+    },
+    settings: {
+        'import/resolver': {
+            webpack: {
+                config: 'webpack.config.js',
+            }
+            alias: [
+                ['@components', path.resolve(__dirname, 'app/src/js/components/')],
+                ['@styles', path.resolve(__dirname, 'app/src/styles/')],
+            ],
+        }
     }
 };
