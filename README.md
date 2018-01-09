@@ -1,5 +1,5 @@
-# Frontend Project Base
-Base project structure for using ES6, CSS precompiling, testing, and simple asset management
+# React Frontend Project Base
+Base project structure for React with ES6, CSS precompiling, and component testing
 
 > Requires node v.7^
 
